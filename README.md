@@ -1,3 +1,7 @@
+IF PERMISSION DENIED WHEN DEPLOYING DO:
+```bash
+$ ssh-add
+```
 <a href="http://www.discourse.org/">![Logo](images/discourse.png)</a>
 
 Discourse is the 100% open source, next-generation discussion platform built for the next decade of the Internet.
