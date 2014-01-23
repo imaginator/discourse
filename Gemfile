@@ -125,6 +125,10 @@ gem 'oj'
 gem 'pg', '0.15.1'
 gem 'rake'
 
+gem 'capistrano', require: nil
+gem 'capistrano-bundler', require: nil
+gem 'capistrano-rbenv', require: nil
+gem 'capistrano-rails', require: nil
 
 gem 'rest-client'
 gem 'rinku'

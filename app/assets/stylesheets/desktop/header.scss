@@ -11,10 +11,8 @@
   top: 0;
   left: 0;
   z-index: 1000;
-  box-shadow: 0 1px 5px rgba(70, 70, 70, .4);
-  background-color: $white;
-  padding-right: 3px;
-  padding-top: 3px;
+  // box-shadow: 0 2px 0 rgba(70, 70, 70, .15);
+  background-color: #FDFDFD;
   .docked & {
     position: fixed;
   }
@@ -31,13 +29,16 @@
     }
   }
   #site-logo {
-    max-width: 122px;
+    max-width: 200px;
+    width: 200px;
+  }
+  .logo-small {
+    max-height: 30px;
+    min-width: 36px;
   }
   .fa-home {
     font-size: 20px;
     line-height: 40px;
-    padding-right: 3px;
-    padding-top: 3px;
   }
   .panel {
     float: right;
@@ -51,7 +52,7 @@
       line-height: 40px;
     }
     button {
-      margin-top: 8px;
+      // margin-top: 8px;
     }
   }
   .icons {
@@ -65,15 +66,12 @@
       }
       &:first-child.active .icon {
       }
-      &:last-child .icon {
-        border-right: 1px solid #ccc;
-      }
     }
     .icon {
       display: block;
-      border-top: 1px solid #ccc;
-      border-bottom: 1px solid #ccc;
-      border-left: 1px solid #d6d6d6;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      margin: 0 0 0 10px;
       padding: 3px;
       color: $nav-button-color;
       text-decoration: none;
@@ -140,7 +138,7 @@
 }
 
 #main-outlet {
-  padding-top: 75px;
+  padding-top: 90px;
 }
 
 // Dropdowns
@@ -239,3 +237,22 @@
     line-height: 20px;
   }
 }
+
+.one-net-nav {
+  display: inline-block;
+  a {
+    margin-top: 15px;
+    margin-right: 25px;
+    text-decoration: none;
+    display: inline-block;
+    color: #33373f;
+    font-size: 16px;
+    &:first-child {
+      margin-left: 30px;
+    }
+    &.current-page {
+      color: #66944d;
+    }
+  }
+}
+

@@ -6,8 +6,8 @@
     {{#if showExtraInfo}}
       <div class="extra-info-wrapper">
         <div class="extra-info">
-          {{#if showStarButton}}
-            <a {{bind-attr class=":star topic.starred:starred"}} {{action toggleStar}} href='#' {{bind-attr title="topic.starTooltip"}}></a>
+          {{#if showFavoriteButton}}
+            <a {{bindAttr class=":star topic.starred:starred"}} {{action toggleStar}} href='#' {{bindAttr title="topic.favoriteTooltip"}}></a>
           {{/if}}
           <h1>
           {{boundCategoryLink topic.category}}
@@ -24,15 +24,24 @@
           </h1>
         </div>
       </div>
+    {{else}}
+      <div class="one-net-nav">
+        <a href="http://1net.org">Home</a>
+        <a href="http://1net.org/posts">Blog</a>
+        <a href="http://1net.org/supporters">Supporters</a>
+        <a href="http://1net.org/events">Events</a>
+        <a href="http://1net.org/about">About</a>
+      </div>
     {{/if}}
 
     <div class='panel clearfix'>
       {{#unless showExtraInfo}}
         <div class='current-username'>
           {{#if currentUser}}
-            <span class='username'><a {{bind-attr href="currentUser.path"}}>{{currentUser.displayName}}</a></span>
+            <span class='username'><a {{bindAttr href="currentUser.path"}}>{{currentUser.displayName}}</a></span>
           {{else}}
             <button {{action showLogin}} class='btn btn-primary btn-small'>{{i18n log_in}}</button>
+            <button {{action showCreateAccount}} class='btn btn-primary btn-small'>Sign Up</button>
           {{/if}}
         </div>
       {{/unless}}
@@ -90,7 +99,7 @@
           {{#if currentUser}}
             {{#titledLinkTo 'userActivity.index' currentUser titleKey="current_user" class="icon"}}{{boundAvatar currentUser imageSize="medium" }}{{/titledLinkTo}}
           {{else}}
-            <div class="icon not-logged-in-avatar" {{action showLogin}}><i class='fa fa-user' title='{{i18n not_logged_in_user}}'></i></div>
+            <div class="icon not-logged-in-avatar" {{action showLogin}}><i class='fa fa-user'></i></div>
           {{/if}}
         </li>
       </ul>
@@ -106,5 +115,3 @@
     </div>
   </div>
 </div>
-
-
