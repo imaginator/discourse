@@ -49,7 +49,7 @@ namespace :deploy do
   desc 'Restart thin servers'
   task :restart do
     on roles(:app) do
-      # execute "cd #{fetch(:release_path)} && RUBY_GC_MALLOC_LIMIT=90000000 bundle exec thin -C config/thin.yml restart"
+      execute "cd #{fetch(:release_path)} && RUBY_GC_MALLOC_LIMIT=90000000 bundle exec thin -C config/thin.yml restart"
     end
   end
 end
