@@ -33,6 +33,19 @@ profile:
   host_names:
     - "localhost"
 
+staging:
+  pool: <%= GlobalSetting.db_pool %>
+  timeout: <%= GlobalSetting.db_timeout %>
+  adapter: postgresql
+  socket: <%= GlobalSetting.db_socket %>
+  host: <%= GlobalSetting.db_host %>
+  port: <%= GlobalSetting.db_port %>
+  database: <%= GlobalSetting.db_name %>
+  username: <%= GlobalSetting.db_username %>
+  password: <%= GlobalSetting.db_password %>
+  host_names:
+    - <%= GlobalSetting.hostname %>
+
 production:
   pool: <%= GlobalSetting.db_pool %>
   timeout: <%= GlobalSetting.db_timeout %>
