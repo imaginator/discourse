@@ -12,7 +12,7 @@ set :keep_releases, 5
 set :pty, true
 
 set :rbenv_type, :user
-set :rbenv_ruby, "2.0.0-p195"
+set :rbenv_ruby, "2.0.0-p247"
 
 set :default_env, { path: "/home/deployer/.rbenv/shims:/home/deployer/.rbenv/bin:$PATH" }
 
