@@ -35,21 +35,21 @@ namespace :deploy do
   desc 'Start thin servers'
   task :start do
     on roles(:app) do
-      execute "cd #{fetch(:release_path)} && PATH=/home/deployer/.rbenv/shims:/home/deployer/.rbenv/bin:$PATH RUBY_GC_MALLOC_LIMIT=90000000 bundle exec thin -C config/thin.yml start"
+      execute "cd #{deploy_to}/current && PATH=/home/deployer/.rbenv/shims:/home/deployer/.rbenv/bin:$PATH RUBY_GC_MALLOC_LIMIT=90000000 bundle exec thin -C config/thin.yml start"
     end
   end
 
   desc 'Stop thin servers'
   task :stop do
     on roles(:app) do
-      execute "cd #{fetch(:release_path)} && PATH=/home/deployer/.rbenv/shims:/home/deployer/.rbenv/bin:$PATH bundle exec thin -C config/thin.yml stop"
+      execute "cd #{deploy_to}/current && PATH=/home/deployer/.rbenv/shims:/home/deployer/.rbenv/bin:$PATH bundle exec thin -C config/thin.yml stop"
     end
   end
 
   desc 'Restart thin servers'
   task :restart do
     on roles(:app) do
-      execute "cd #{fetch(:release_path)} && PATH=/home/deployer/.rbenv/shims:/home/deployer/.rbenv/bin:$PATH RUBY_GC_MALLOC_LIMIT=90000000 bundle exec thin -C config/thin.yml restart"
+      execute "cd #{deploy_to}/current && PATH=/home/deployer/.rbenv/shims:/home/deployer/.rbenv/bin:$PATH RUBY_GC_MALLOC_LIMIT=90000000 bundle exec thin -C config/thin.yml restart"
     end
   end
 end
@@ -62,19 +62,3 @@ remote_file "config/mandrill.yml" => "config/mandrill.yml.deploy", :roles => :ap
 remote_file "config/redis.yml" => "config/redis.yml.deploy", :roles => :app
 
 after "deploy:check:make_linked_dirs", "setup_shared_files"
-
-
-namespace :db do
-  desc 'Seed your database for the first time'
-  task :seed do
-    run "cd #{current_path} && psql -d discourse_production < pg_dumps/production-image.sql"
-  end
-end
-
-namespace :sidekiq do
-  desc "Do sidekiq commands"
-  # run like: cap staging rake:invoke task=a_certain_task
-  task :start do
-    run("cd #{deploy_to}/current; /usr/bin/env rake sidekiq:start RAILS_ENV=#{rails_env}")
-  end
-end
