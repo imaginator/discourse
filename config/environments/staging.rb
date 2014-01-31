@@ -32,13 +32,13 @@ Discourse::Application.configure do
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
   config.action_mailer.smtp_settings = {
-      :address        => 'smtp.mandrillapp.com',
-      :port           => '25',
-      :authentication => :login,
-      :user_name      => ENV['MANDRILL_USERNAME'],
-      :password       => ENV['MANDRILL_PASSWORD'],
-      :domain         => 'forum.1net.org',
-      :enable_starttls_auto => true
+      :address        => GlobalSetting.smtp_address,
+      :port           => GlobalSetting.smtp_port,
+      :authentication => GlobalSetting.smtp_authentication,
+      :user_name      => GlobalSetting.smtp_user_name,
+      :password       => GlobalSetting.smtp_password,
+      :domain         => GlobalSetting.staging_smtp_domain,
+      :enable_starttls_auto => GlobalSetting.smtp_enable_start_tls
   }
 
   # Send deprecation notices to registered listeners

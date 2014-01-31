@@ -1,9 +1,11 @@
 after 'deploy', 'deploy:migrate'
 set :application, '1net-discourse'
-set :deploy_to, "/home/deployer/1net-forum"
 
 set :scm, :git
 set :repo_url, 'git@github.com:neo/discourse.git'
+
+set :stages, %w{staging production}
+set :default_sage, "staging"
 
 set :user, 'deployer'
 set :use_sudo, false
