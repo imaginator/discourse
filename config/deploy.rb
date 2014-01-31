@@ -70,3 +70,11 @@ namespace :db do
     run "cd #{current_path} && psql -d discourse_production < pg_dumps/production-image.sql"
   end
 end
+
+namespace :sidekiq do
+  desc "Do sidekiq commands"
+  # run like: cap staging rake:invoke task=a_certain_task
+  task :start do
+    run("cd #{deploy_to}/current; /usr/bin/env rake sidekiq:start RAILS_ENV=#{rails_env}")
+  end
+end
