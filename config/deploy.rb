@@ -20,7 +20,7 @@ set :default_env, { path: "/home/deployer/.rbenv/shims:/home/deployer/.rbenv/bin
 
 set :ssh_options, { forward_agent: true, port: 22 }
 
-set :linked_files, %w{config/database.yml config/discourse.conf config/sidekiq.yml}
+set :linked_files, %w{config/database.yml config/discourse.conf}
 set :linked_dirs, %w{bin tmp/pids tmp/cache tmp/sockets log}
 
 
@@ -56,12 +56,13 @@ namespace :deploy do
   end
 end
 
-task :setup_shared_files => ["config/database.yml", "config/redis.yml", "config/discourse.conf", "config/mandrill.yml", "config/sidekiq.yml"]
+task :setup_shared_files => ["config/database.yml", "config/redis.yml", "config/discourse.conf", "config/mandrill.yml", "config/sidekiq.yml", "config/discourse.pill"]
 
 remote_file "config/database.yml" => "config/database.yml.deploy", :roles => :app
 remote_file "config/discourse.conf" => "config/discourse.conf.deploy", :roles => :app
 remote_file "config/mandrill.yml" => "config/mandrill.yml.deploy", :roles => :app
 remote_file "config/redis.yml" => "config/redis.yml.deploy", :roles => :app
 remote_file "config/sidekiq.yml" => "config/sidekiq.yml.deploy", :roles => :app
+remote_file "config/discourse.pill" => "config/discourse.pill.deploy", :roles => :app
 
 after "deploy:check:make_linked_dirs", "setup_shared_files"
