@@ -74,8 +74,6 @@ gem 'active_model_serializers'
 
 gem 'onebox', git: 'https://github.com/dysania/onebox.git'
 
-# we had issues with latest, stick to the rev till we figure this out
-# PR that makes it all hang together welcome
 gem 'ember-rails'
 gem 'ember-source', '~> 1.2.0.1'
 gem 'handlebars-source', '~> 1.1.2'
@@ -141,8 +139,7 @@ gem 'sidekiq-failures'
 gem 'sinatra', require: nil
 gem 'slim'  # required for sidekiq-web
 
-# URGENT fix needed see: https://github.com/cowboyd/therubyracer/pull/280
-gem 'therubyracer-discourse', require: 'v8'
+gem 'therubyracer'
 gem 'thin', require: false
 gem 'highline', require: false
 gem 'rack-protection' # security

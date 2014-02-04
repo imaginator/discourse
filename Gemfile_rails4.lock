@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/dysania/onebox.git
-  revision: 0deaf043ae6594a3006d0adcba53ee449cfe08e6
+  revision: 3753be3252dbb811f2ce94b56b55b5de54475a6c
   specs:
     onebox (1.1.0)
       hexpress (~> 1.2)
@@ -385,9 +385,7 @@ GEM
       net-ssh
       term-ansicolor
     temple (0.6.7)
-    term-ansicolor (1.2.2)
-      tins (~> 0.8)
-    therubyracer-discourse (0.12.0)
+    therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
       ref
     thin (1.6.1)
@@ -507,7 +505,7 @@ DEPENDENCIES
   sinatra
   slim
   spork-rails
-  therubyracer-discourse
+  therubyracer
   thin
   timecop
   uglifier

@@ -4,6 +4,26 @@ describe UserNotifications do
 
   let(:user) { Fabricate(:admin) }
 
+  describe "#get_context_posts" do
+    it "does not include hidden/deleted/user_deleted posts in context" do
+      post = create_post
+      reply1 = create_post(topic: post.topic)
+      reply2 = create_post(topic: post.topic)
+      reply3 = create_post(topic: post.topic)
+      reply4 = create_post(topic: post.topic)
+
+      reply1.trash!
+
+      reply2.user_deleted = true
+      reply2.save
+
+      reply3.hidden = true
+      reply3.save
+
+      UserNotifications.get_context_posts(reply4, nil).count.should == 1
+    end
+  end
+
   describe ".signup" do
     subject { UserNotifications.signup(user) }
 
@@ -103,7 +123,7 @@ describe UserNotifications do
                 topic: post.topic,
                 notification_type: Notification.types[notification_type],
                 post_number: post.post_number,
-                data: {display_username: username}.to_json )
+                data: {original_username: username}.to_json )
     end
 
     describe '.user_mentioned' do
