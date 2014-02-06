@@ -1,5 +1,5 @@
 require "sidekiq/web"
-require "sidetiq/web"
+require_dependency "scheduler/web"
 
 require_dependency "admin_constraint"
 require_dependency "staff_constraint"
@@ -113,6 +113,7 @@ Discourse::Application.routes.draw do
     end
   end
 
+  get "session/current" => "session#current"
   get "session/csrf" => "session#csrf"
   get "composer-messages" => "composer_messages#index"
 

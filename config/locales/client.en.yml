@@ -61,6 +61,7 @@ en:
         x_days:
           one: "1 day"
           other: "%{count} days"
+        date_year: "D MMM YYYY"
       medium_with_ago:
         x_minutes:
           one: "1 min ago"
@@ -594,7 +595,7 @@ en:
     current_user: 'go to your user page'
 
     starred:
-      title: 'Starred'
+      title: 'Star'
       help:
         star: 'add this topic to your starred list'
         unstar: 'remove this topic from your starred list'

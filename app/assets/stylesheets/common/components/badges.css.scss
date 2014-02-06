@@ -31,11 +31,12 @@
   &.restricted {
     div {
       display: inline-block;
-      vertical-align: top;
       margin: 0;
     }
   }
 }
+
+h1 a.badge-category div {vertical-align: top;}
 
 
 // Notification badge

@@ -120,6 +120,10 @@ class ListController < ApplicationController
 
     top = generate_top_lists(top_options)
 
+    top.draft_key = Draft::NEW_TOPIC
+    top.draft_sequence = DraftSequence.current(current_user, Draft::NEW_TOPIC)
+    top.draft = Draft.get(current_user, top.draft_key, top.draft_sequence) if current_user
+
     respond_to do |format|
       format.html do
         @top = top
@@ -217,6 +221,7 @@ class ListController < ApplicationController
 
     @category = Category.where(slug: slug_or_id, parent_category_id: parent_category_id).includes(:featured_users).first ||
                 Category.where(id: slug_or_id.to_i, parent_category_id: parent_category_id).includes(:featured_users).first
+    guardian.ensure_can_see!(@category)
 
     raise Discourse::NotFound.new if @category.blank?
   end
@@ -266,7 +271,8 @@ class ListController < ApplicationController
   end
 
   def generate_top_lists(options)
-    top = {}
+    top = TopLists.new
+
     options[:per_page] = SiteSetting.topics_per_period_in_top_summary
     topic_query = TopicQuery.new(current_user, options)
 
@@ -276,7 +282,7 @@ class ListController < ApplicationController
       periods = TopTopic.periods
     end
 
-    periods.each { |period| top[period] = topic_query.list_top_for(period) }
+    periods.each { |period| top.send("#{period}=", topic_query.list_top_for(period)) }
 
     top
   end
