@@ -143,19 +143,9 @@
   .topic-excerpt {
     font-size: 14px;
     margin-top: 8px;
-    color: $dark_gray;
-  }
-
-  .rank-details {
-    background-color: #eee;
-    padding: 6px;
-    margin-bottom: 5px;
-
-    p {
-      font-size: 12px;
-      margin: 0;
-      line-height: 14px;
-    }
+    color: lighten($primary_text_color, 35%);
+    word-break: break-word;
+    padding-right: 20px;
   }
 
   @include medium-width {
