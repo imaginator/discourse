@@ -12,6 +12,7 @@ module PrettyText
       if opts
         # TODO: server localisation has no parity with client
         # should be fixed
+        str = str.dup
         opts.each do |k,v|
           str.gsub!("{{#{k}}}", v)
         end
@@ -70,6 +71,7 @@ module PrettyText
               "app/assets/javascripts/defer/html-sanitizer-bundle.js",
               "app/assets/javascripts/discourse/dialects/dialect.js",
               "app/assets/javascripts/discourse/lib/utilities.js",
+              "app/assets/javascripts/discourse/lib/html.js",
               "app/assets/javascripts/discourse/lib/markdown.js")
 
     Dir["#{Rails.root}/app/assets/javascripts/discourse/dialects/**.js"].each do |dialect|

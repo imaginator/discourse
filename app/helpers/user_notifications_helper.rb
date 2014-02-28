@@ -39,9 +39,15 @@ module UserNotificationsHelper
 
   def first_paragraph_from(html)
     doc = Nokogiri::HTML(html)
+
+    result = ""
     doc.css('p').each do |p|
-      return p if p.text.present?
+      if p.text.present?
+        result << p.to_s
+        return result if result.size >= 100
+      end
     end
+    return result unless result.blank?
 
     # If there is no first paragaph, return the first div (onebox)
     doc.css('div').first

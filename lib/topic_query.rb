@@ -19,6 +19,7 @@ class TopicQuery
                      sort_order
                      no_subcategories
                      sort_descending
+                     no_definitions
                      status).map(&:to_sym)
 
   # Maps `sort_order` to a columns in `topics`
@@ -35,6 +36,10 @@ class TopicQuery
     options.assert_valid_keys(VALID_OPTIONS)
     @options = options
     @user = user
+  end
+
+  def joined_topic_user(list=nil)
+    (list || Topic).joins("LEFT OUTER JOIN topic_users AS tu ON (topics.id = tu.topic_id AND tu.user_id = #{@user.id.to_i})")
   end
 
   # Return a list of suggested topics for a topic
@@ -208,6 +213,7 @@ class TopicQuery
       result.order("topics.#{sort_column} #{sort_dir}")
     end
 
+
     # Create results based on a bunch of default options
     def default_results(options={})
       options.reverse_merge!(@options)
@@ -218,6 +224,7 @@ class TopicQuery
 
       if @user
         result = result.joins("LEFT OUTER JOIN topic_users AS tu ON (topics.id = tu.topic_id AND tu.user_id = #{@user.id.to_i})")
+                       .references('tu')
       end
 
       category_id = nil
@@ -239,8 +246,8 @@ class TopicQuery
       result = result.listable_topics.includes(category: :topic_only_relative_url)
       result = result.where('categories.name is null or categories.name <> ?', options[:exclude_category]).references(:categories) if options[:exclude_category]
 
-      # Don't include the category topic unless restricted to that category
-      if options[:category].blank?
+      # Don't include the category topics if excluded
+      if options[:no_definitions]
         result = result.where('COALESCE(categories.topic_id, 0) <> topics.id')
       end
 
@@ -265,7 +272,7 @@ class TopicQuery
       end
 
       guardian = Guardian.new(@user)
-      unless guardian.is_staff?
+      if !guardian.is_admin?
         allowed_ids = guardian.allowed_category_ids
         if allowed_ids.length > 0
           result = result.where('topics.category_id IS NULL or topics.category_id IN (?)', allowed_ids)
@@ -280,13 +287,14 @@ class TopicQuery
 
     def new_results(options={})
       result = TopicQuery.new_filter(default_results(options), @user.treat_as_new_topic_start_date)
-      result = remove_muted_categories(result, @user)
+      result = remove_muted_categories(result, @user) unless options[:category].present?
       suggested_ordering(result, options)
     end
 
     def latest_results(options={})
       result = default_results(options)
-      remove_muted_categories(result, @user)
+      result = remove_muted_categories(result, @user) unless options[:category].present?
+      result
     end
 
     def remove_muted_categories(list, user)
@@ -296,7 +304,7 @@ class TopicQuery
                          WHERE cu.user_id = ? AND
                                cu.category_id = topics.category_id AND
                                cu.notification_level = ?
-                         )", user.id, CategoryUser.notification_levels[:muted])
+                         )", user.id, CategoryUser.notification_levels[:muted]).references('cu')
       end
 
       list

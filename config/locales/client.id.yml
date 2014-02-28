@@ -263,9 +263,6 @@ id:
       github:
         title: "with GitHub"
         message: "Authenticating with GitHub (make sure pop up blockers are not enabled)"
-      persona:
-        title: "with Persona"
-        message: "Authenticating with Mozilla Persona (make sure pop up blockers are not enabled)"
 
     composer:
       saving_draft_tip: "saving"
@@ -450,7 +447,7 @@ id:
         error: "Sorry there was an error inviting that user."
 
       invite_reply:
-        title: 'Invite Friends to Reply'
+        title: 'Invite Friends'
         action: 'Email Invite'
         help: 'send invitations to friends so they can reply to this topic with a single click'
         email: "We'll send your friend a brief email allowing them to immediately reply to this topic by clicking a link, no login required."

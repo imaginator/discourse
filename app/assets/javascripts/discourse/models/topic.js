@@ -144,6 +144,7 @@ Discourse.Topic = Discourse.Model.extend({
   archetypeObject: function() {
     return Discourse.Site.currentProp('archetypes').findProperty('id', this.get('archetype'));
   }.property('archetype'),
+
   isPrivateMessage: Em.computed.equal('archetype', 'private_message'),
 
   toggleStatus: function(property) {
@@ -313,7 +314,27 @@ Discourse.Topic.reopenClass({
     WATCHING: 3,
     TRACKING: 2,
     REGULAR: 1,
-    MUTE: 0
+    MUTED: 0
+  },
+
+  createActionSummary: function(result) {
+    if (result.actions_summary) {
+      var lookup = Em.Object.create();
+      result.actions_summary = result.actions_summary.map(function(a) {
+        a.post = result;
+        a.actionType = Discourse.Site.current().postActionTypeById(a.id);
+        var actionSummary = Discourse.ActionSummary.create(a);
+        lookup.set(a.actionType.get('name_key'), actionSummary);
+        return actionSummary;
+      });
+      result.set('actionByName', lookup);
+    }
+  },
+
+  create: function() {
+    var result = this._super.apply(this, arguments);
+    this.createActionSummary(result);
+    return result;
   },
 
   /**
@@ -399,6 +420,13 @@ Discourse.Topic.reopenClass({
         topic_ids: topics.map(function(t) { return t.get('id'); }),
         operation: operation
       }
+    });
+  },
+
+  bulkOperationByFilter: function(filter, operation) {
+    return Discourse.ajax("/topics/bulk", {
+      type: 'PUT',
+      data: { filter: filter, operation: operation }
     });
   }
 

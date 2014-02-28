@@ -24,6 +24,9 @@ basic:
   default_locale:
     default: 'en'
     enum: 'LocaleSiteSetting'
+  allow_user_locale:
+    client: true
+    default: false
   ga_tracking_code:
     client: true
     default: ''
@@ -68,6 +71,13 @@ basic:
     default: 50
 
 users:
+  enable_sso:
+    client: true
+    default: false
+  sso_url:
+    default: ''
+  sso_secret:
+    defalt: ''
   enable_local_logins:
     client: true
     default: true
@@ -103,19 +113,11 @@ users:
     default: true
   facebook_app_id: ''
   facebook_app_secret: ''
-  enable_cas_logins:
-    client: true
-    default: false
-  cas_hostname: ''
-  cas_domainname: ''
   enable_github_logins:
     client: true
     default: false
   github_client_id: ''
   github_client_secret: ''
-  enable_persona_logins:
-    client: true
-    default: false
   enforce_global_nicknames: false
   discourse_org_access_key: ''
   invite_expiry_days: 4
@@ -127,7 +129,7 @@ users:
   invites_shown:
     client: true
     default: 30
-  delete_user_max_age:
+  delete_user_max_post_age:
     client: true
     default: 60
   delete_all_posts_max: 15
@@ -221,6 +223,7 @@ posting:
 email:
   email_time_window_mins: 10
   email_posts_context: 5
+  digest_min_excerpt_length: 100
   default_digest_email_frequency:
     default: 7
     enum: 'DigestEmailSiteSetting'
@@ -232,7 +235,7 @@ email:
   pop3s_polling_port: 995
   pop3s_polling_username: ''
   pop3s_polling_password: ''
-  enable_watch_new_topics:
+  enable_mailing_list_mode:
     default: false
     client: true
 
@@ -304,7 +307,7 @@ security:
   use_https: false
   enable_escaped_fragments:
     client: true
-    default: false
+    default: true
 
 seo:
   add_rel_nofollow_to_user_content: true
@@ -330,6 +333,7 @@ spam:
   notify_mods_when_user_blocked: false
   flag_sockpuppets: true
   newuser_spam_host_threshold: 3
+  white_listed_spam_host_domains: ""
 
 rate_limits:
   unique_posts_mins:
@@ -365,14 +369,20 @@ embedding:
   embed_category: ''
   embed_post_limit: 100
 
-uncategorized:
+legal:
   tos_url:
     client: true
     default: ''
-  faq_url:
+  privacy_policy_url:
     client: true
     default: ''
-  privacy_policy_url:
+  tos_accept_required:
+    client: true
+    default: false
+
+uncategorized:
+
+  faq_url:
     client: true
     default: ''
 
@@ -410,7 +420,9 @@ uncategorized:
   summary_likes_required: 1
   summary_percent_filter: 20
   send_welcome_message: true
-  allow_import: false
+  allow_restore:
+    client: true
+    default: false
   educate_until_posts:
     client: true
     default: 2
@@ -436,4 +448,8 @@ uncategorized:
   meta_category_id:
     default: -1
     hidden: true
+  staff_category_id:
+    default: -1
+    hidden: true
+  min_posts_for_search_in_topic: 10
 

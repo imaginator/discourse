@@ -36,13 +36,21 @@ Discourse.AdminUser = Discourse.User.extend({
     });
   },
 
+  deleteAllPostsExplanation: function() {
+    if (!this.get('can_delete_all_posts')) {
+      return I18n.t('admin.user.cant_delete_all_posts', {count: Discourse.SiteSettings.delete_user_max_post_age});
+    } else {
+      return null;
+    }
+  }.property('can_delete_all_posts'),
+
   deleteAllPosts: function() {
     this.set('can_delete_all_posts', false);
     var user = this;
     var message = I18n.t('admin.user.delete_all_posts_confirm', {posts: user.get('post_count'), topics: user.get('topic_count')});
     var buttons = [{
       "label": I18n.t("composer.cancel"),
-      "class": "cancel",
+      "class": "cancel-inline",
       "link":  true,
       "callback": function() {
         user.set('can_delete_all_posts', true);
@@ -243,7 +251,7 @@ Discourse.AdminUser = Discourse.User.extend({
       if (this.get('staff')) {
         return I18n.t('admin.user.delete_forbidden_because_staff');
       } else {
-        return I18n.t('admin.user.delete_forbidden', {count: Discourse.SiteSettings.delete_user_max_age});
+        return I18n.t('admin.user.delete_forbidden', {count: Discourse.SiteSettings.delete_user_max_post_age});
       }
     } else {
       return null;
@@ -308,7 +316,7 @@ Discourse.AdminUser = Discourse.User.extend({
     var message = I18n.t('flagging.delete_confirm', {posts: user.get('post_count'), topics: user.get('topic_count'), email: user.get('email'), ip_address: user.get('ip_address')});
     var buttons = [{
       "label": I18n.t("composer.cancel"),
-      "class": "cancel",
+      "class": "cancel-inline",
       "link":  true
     }, {
       "label": '<i class="fa fa-exclamation-triangle"></i> ' + I18n.t("flagging.yes_delete_spammer"),
@@ -388,7 +396,7 @@ Discourse.AdminUser.reopenClass({
   },
 
   find: function(username) {
-    return Discourse.ajax("/admin/users/" + username).then(function (result) {
+    return Discourse.ajax("/admin/users/" + username + ".json").then(function (result) {
       result.loadedDetails = true;
       return Discourse.AdminUser.create(result);
     });

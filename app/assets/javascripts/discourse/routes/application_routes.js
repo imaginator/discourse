@@ -8,6 +8,7 @@ Discourse.Route.buildRoutes(function() {
   var router = this;
 
   // Generate static page routes
+  // e.g., faq, tos, privacy, login
   _.each(Discourse.StaticController.PAGES, function (page) {
     router.route(page, { path: '/' + page });
   });
@@ -64,6 +65,10 @@ Discourse.Route.buildRoutes(function() {
     this.route(homepage, { path: '/' });
   });
 
+  this.resource('group', { path: '/groups/:name' }, function() {
+    this.route('members');
+  });
+
   // User routes
   this.resource('user', { path: '/users/:username' }, function() {
     this.resource('userActivity', { path: '/activity' }, function() {
@@ -86,4 +91,7 @@ Discourse.Route.buildRoutes(function() {
 
     this.route('invited');
   });
+
+  this.route('signup', {path: '/signup'});
+  this.route('login', {path: '/login'});
 });

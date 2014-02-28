@@ -24,8 +24,8 @@ pt_BR:
   via: "%{username} via %{site_name}"
   is_reserved: "está reservado"
 
-  site_under_maintenance: 'Este site está sob manutenção no momento.'
-  operation_already_running: "Uma tarefa %{operation} está rodando atualmente. Impossível iniciar uma nova tarefa %{operation} agora."
+  backup:
+    operation_already_running: "Uma tarefa %{operation} está rodando atualmente. Impossível iniciar uma nova tarefa %{operation} agora."
 
   too_many_mentions:
     zero: "Desculpe, você não pode mencionar outros usuários."
@@ -542,7 +542,7 @@ pt_BR:
     must_approve_users: "Os proprietários do fórum tem que aprovar os usuários antes deles terem acesso."
     ga_tracking_code: "Código de rastreamento do Google Analytics, veja: http://google.com/analytics"
     ga_domain_name: "Nome de domínio no Google Analytics, exemplo: meusite.com; see http://google.com/analytics"
-    enable_escaped_fragments: "Ativa solução alternativa que ajuda os mecanismos de busca antigos a indexarem o seu site. ALERTA: apenas ative se você realmente precisa disto."
+    enable_escaped_fragments: "Ativa solução alternativa que ajuda os mecanismos de busca antigos a indexarem o seu site."
     enable_noscript_support: "Ativar suporte a tag &lt;noscript&gt;"
     top_menu: "A ordem dos items no menu de cima. Exemplo latest|new|unread|starred|categories|top|read|posted"
     post_menu: "A ordem dos items no menu da postagem."
@@ -593,9 +593,7 @@ pt_BR:
     github_client_id: "Client id para autenticação via Github, registrado em https://github.com/settings/applications"
     github_client_secret: "Client secret para autenticação via Github, registrado em https://github.com/settings/applications"
 
-    enable_persona_logins: "Ativar autenticação baseada em email com Mozilla Persona"
-
-    allow_import: "Permitir importar, vai substituir TODOS os dados do site. Deixe como falso a menos que você pretenda fazer importações."
+    allow_restore: "Permitir importar, vai substituir TODOS os dados do site. Deixe como falso a menos que você pretenda fazer importações."
 
     active_user_rate_limit_secs: "Qual a frequencia de atualização do campo 'última vez visto em', em segundos."
     previous_visit_timeout_hours: "Quanto tempo uma visita dura antes de considerarmos como 'última visita', em horas."
@@ -692,7 +690,7 @@ pt_BR:
     minimum_topics_similar: "Quantos tópicos precisam existir no banco de dados antes de um tópico similar ser apresentado."
 
     relative_date_duration: "Número de dias após a postagem a partir de quando as datas das postagens serão exibidas como relativas em vez de absolutas. Exemplos: data relativa: 7D, data absoluta: 20 de fevereiro"
-    delete_user_max_age: "Idade máxima, em dias, que um usuário pode ser removido por um admin."
+    delete_user_max_post_age: "Idade máxima, em dias, que um usuário pode ser removido por um admin."
     delete_all_posts_max: "Número máximo de posts que podem ser deletados de uma vez pelo botão Deletar Todos os Posts. Se um usuário tem mais posts que isso, os posts não pode ser removidos de uma vez  e o usuário não pode ser removido."
     username_change_period: "Número de dias após o registro que as contas podem trocar o username(0 impede a troca de username)"
     email_editable: "Permite que usuários mudem endereço de e-mail após cadastro"

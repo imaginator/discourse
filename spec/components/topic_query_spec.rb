@@ -8,7 +8,7 @@ describe TopicQuery do
   let(:topic_query) { TopicQuery.new(user) }
 
   let(:moderator) { Fabricate(:moderator) }
-  let(:admin) { Fabricate(:moderator) }
+  let(:admin) { Fabricate(:admin) }
 
 
   context 'secure category' do
@@ -27,13 +27,15 @@ describe TopicQuery do
       Topic.top_viewed(10).count.should == 0
       Topic.recent(10).count.should == 0
 
-      # mods can see every group and hidden topics
-      TopicQuery.new(moderator).list_latest.topics.count.should == 2
+      # mods can see hidden topics
+      TopicQuery.new(moderator).list_latest.topics.count.should == 1
+      # admins can see all the topics
+      TopicQuery.new(admin).list_latest.topics.count.should == 3
 
       group.add(user)
       group.save
 
-      TopicQuery.new(user).list_latest.topics.count.should == 1
+      TopicQuery.new(user).list_latest.topics.count.should == 2
 
     end
 

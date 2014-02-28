@@ -11,6 +11,9 @@ function buildTopicRoute(filter) {
     },
 
     model: function() {
+      // attempt to stop early cause we need this to be called before .sync
+      Discourse.ScreenTrack.current().stop();
+
       return Discourse.TopicList.list(filter).then(function(list) {
         var tracking = Discourse.TopicTrackingState.current();
         if (tracking) {
@@ -25,18 +28,30 @@ function buildTopicRoute(filter) {
       var period = filter.indexOf('/') > 0 ? filter.split('/')[1] : '',
           filterText = I18n.t('filters.' + filter.replace('/', '.') + '.title', {count: 0});
 
-      Discourse.set('title', I18n.t('filters.with_topics', {filter: filterText}));
+      if (filter === Discourse.Utilities.defaultHomepage()) {
+        Discourse.set('title', '');
+      } else {
+        Discourse.set('title', I18n.t('filters.with_topics', {filter: filterText}));
+      }
 
-      this.controllerFor('discoveryTopics').setProperties({ model: model, category: null, period: period });
+      this.controllerFor('discoveryTopics').setProperties({
+        model: model,
+        category: null,
+        period: period,
+        selected: []
+      });
 
       // If there's a draft, open the create topic composer
       if (model.draft) {
-        this.controllerFor('composer').open({
-          action: Discourse.Composer.CREATE_TOPIC,
-          draft: model.draft,
-          draftKey: model.draft_key,
-          draftSequence: model.draft_sequence
-        });
+        var composer = this.controllerFor('composer');
+        if (!composer.get('model.viewOpen')) {
+          composer.open({
+            action: Discourse.Composer.CREATE_TOPIC,
+            draft: model.draft,
+            draftKey: model.draft_key,
+            draftSequence: model.draft_sequence
+          });
+        }
       }
 
       this.controllerFor('navigationDefault').set('canCreateTopic', model.get('can_create_topic'));
@@ -101,6 +116,7 @@ function buildCategoryRoute(filter, params) {
         model: topics,
         category: model,
         period: period,
+        selected: [],
         noSubcategories: params && !!params.no_subcategories
       });
 

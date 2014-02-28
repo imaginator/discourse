@@ -23,6 +23,11 @@ class SiteSetting < ActiveRecord::Base
     load_settings(file)
   end
 
+  SiteSettingExtension.class_variable_get(:@@client_settings) << :available_locales
+
+  def self.available_locales
+    LocaleSiteSetting.values.map{ |e| e[:value] }.join('|')
+  end
 
   def self.call_discourse_hub?
     self.enforce_global_nicknames? && self.discourse_org_access_key.present?
@@ -54,6 +59,11 @@ class SiteSetting < ActiveRecord::Base
 
   def self.anonymous_menu_items
     @anonymous_menu_items ||= Set.new Discourse.anonymous_filters.map(&:to_s)
+  end
+
+  def self.normalized_embeddable_host
+    return embeddable_host if embeddable_host.blank?
+    embeddable_host.sub(/^https?\:\/\//, '')
   end
 
   def self.anonymous_homepage

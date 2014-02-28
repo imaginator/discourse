@@ -29,11 +29,11 @@
             {{/each}}
           {{else}}
             <label>{{i18n category.parent}}</label>
-            {{categoryChooser valueAttribute="id" value=parent_category_id categories=parentCategories}}
+            {{categoryChooser valueAttribute="id" value=parent_category_id categories=parentCategories rootNone=true}}
           {{/if}}
         </section>
 
-        {{#unless isUncategorized}}
+        {{#if showDescription}}
           <section class='field'>
             <label>{{i18n category.description}}</label>
 
@@ -47,7 +47,7 @@
               <button class="btn btn-small" {{action showCategoryTopic}}>{{i18n category.change_in_category_topic}}</button>
             {{/if}}
           </section>
-        {{/unless}}
+        {{/if}}
 
         <section class='field'>
           <label>{{i18n category.badge_colors}}</label>
@@ -119,7 +119,7 @@
   </div>
   <div class="modal-footer">
     <button class='btn btn-primary' {{bind-attr disabled="disabled"}} {{action saveCategory}}>{{buttonTitle}}</button>
-    {{#if deleteVisible}}
+    {{#if can_delete}}
       <button class='btn btn-danger pull-right' {{bind-attr disabled="deleteDisabled"}} {{action deleteCategory}}><i class="fa fa-trash-o"></i>{{deleteButtonTitle}}</button>
     {{/if}}
   </div>

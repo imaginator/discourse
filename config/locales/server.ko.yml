@@ -24,8 +24,8 @@ ko:
   via: "%{site_name}의 %{username}"
   is_reserved: "예약됨"
 
-  site_under_maintenance: '사이트가 현재 유지보수 중입니다.'
-  operation_already_running: "현재 %{operation} 작업중입니다. %{operation} 작업을 지금 시작할 수 없습니다."
+  backup:
+    operation_already_running: "현재 %{operation} 작업중입니다. %{operation} 작업을 지금 시작할 수 없습니다."
 
   too_many_mentions:
     zero: "죄송합니다. 당신은 다른 사용자를 언급할 수 없습니다."
@@ -550,7 +550,7 @@ ko:
     must_approve_users: "Admins must approve all users before they gain access"
     ga_tracking_code: "Google analytics tracking code code, eg: UA-12345678-9; see http://google.com/analytics"
     ga_domain_name: "Google analytics domain name, eg: mysite.com; see http://google.com/analytics"
-    enable_escaped_fragments: "당신의 사이트의 오래된 정보를 검색하기 위한 웹크롤러 Workaround 솔루션을 활성. 주의: 꼭 필요할 때만 활성화"
+    enable_escaped_fragments: "당신의 사이트의 오래된 정보를 검색하기 위한 웹크롤러 Workaround 솔루션을 활성"
     enable_noscript_support: "당신의 사이트를 검색하기 위한 noscript 테그를 이용한 일반적인 웹 크롤러를 활성화"
     top_menu: "Determine which items appear in the homepage navigation, and in what order. Example latest|new|unread|starred|categories|top|read|posted"
     post_menu: "게시물 메뉴에 어떤 사항들이 무슨 순서로 올라올지 결정합니다. 예: 좋아요|수정|신고|삭제|공유|북마크|답글"
@@ -601,9 +601,7 @@ ko:
     github_client_id: "Client id for Github authentication, registered at https://github.com/settings/applications"
     github_client_secret: "Client secret for Github authentication, registered at https://github.com/settings/applications"
 
-    enable_persona_logins: "Enable email-based authentication with Mozilla Persona"
-
-    allow_import: "Allow import, which can replace ALL site data; leave false unless you plan to do data imports"
+    allow_restore: "Allow import, which can replace ALL site data; leave false unless you plan to do data imports"
 
     active_user_rate_limit_secs: "How frequently we update the 'last_seen_at' field, in seconds"
     previous_visit_timeout_hours: "How long a visit lasts before we consider it the 'previous' visit, in hours"
@@ -700,7 +698,7 @@ ko:
     minimum_topics_similar: "비슷한 토픽을 검출하기 위해 필요한 데이터베이스의 토픽 수"
 
     relative_date_duration: "Number of days after posting where post dates will be shown as relative instead of absolute. Examples: relative date: 7d, absolute date: 20 Feb"
-    delete_user_max_age: "운영자에 의해 삭제될 수 있는 사용자의 최대 유지기간 수"
+    delete_user_max_post_age: "운영자에 의해 삭제될 수 있는 사용자의 최대 유지기간 수"
     delete_all_posts_max: "전체 게시글 지우기 버튼을 통해 한번에 삭제할 수 있는 최대 게시글 수. 만약 사용자가 이것보다 많은 게시글을 가지고 있으면 한번에 삭제 할 수 없다."
     username_change_period: "등록 후 사용자 이름 최소 유지 기간(0은 사용자 이름 변경을 막음)"
     email_editable: "등록 후 이메일 주소를 바꿀수 있는 있음"
@@ -856,7 +854,7 @@ ko:
 
       [0]: %{base_url}
       [1]: http://www.kitterman.com/spf/validate.html
-      [2]: http://mxtoolbox.com/SuperTool.aspx
+      [2]: http://mxtoolbox.com/ReverseLookup.aspx
       [3]: http://www.dkim.org/
       [4]: http://whatismyipaddress.com/blacklist-check
       [5]: %{base_url}/unsubscribe
