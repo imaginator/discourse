@@ -6,6 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="<%= SiteSetting.site_description %>" name="description">
     <meta content="" name="author">
+    <%= analytics_init if Rails.env.production? %>
 
     <%= canonical_link_tag %>
 

@@ -142,6 +142,7 @@ GEM
     fspath (2.0.5)
     given_core (3.1.1)
       sorcerer (>= 0.3.7)
+    google-analytics-rails (0.0.4)
     guess_html_encoding (0.0.9)
     handlebars-source (1.1.2)
     hashie (2.0.5)
@@ -441,6 +442,7 @@ DEPENDENCIES
   fastimage
   flamegraph
   fog (= 1.18.0)
+  google-analytics-rails
   handlebars-source (~> 1.1.2)
   highline
   hiredis

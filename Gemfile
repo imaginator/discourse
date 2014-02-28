@@ -211,6 +211,9 @@ gem 'rbtrace', require: false, platform: :mri
 gem 'ruby-readability', require: false
 gem 'simple-rss', require: false
 
+# for google analytics
+gem 'google-analytics-rails'
+
 # perftools only works on 1.9 atm
 group :profile do
   # travis refuses to install this, instead of fuffing, just avoid it for now

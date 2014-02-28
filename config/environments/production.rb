@@ -4,6 +4,7 @@ Discourse::Application.configure do
   # Code is not reloaded between requests
   config.cache_classes = true
   config.eager_load = true
+  GA.tracker = "UA-48516233-1"
 
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
