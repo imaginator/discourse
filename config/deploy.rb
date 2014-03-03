@@ -21,7 +21,7 @@ set :default_env, { path: "/home/deployer/.rbenv/shims:/home/deployer/.rbenv/bin
 set :ssh_options, { forward_agent: true, port: 22 }
 
 set :linked_files, %w{config/database.yml config/discourse.conf}
-set :linked_dirs, %w{bin tmp/pids tmp/cache tmp/sockets log}
+set :linked_dirs, %w{bin tmp/pids tmp/cache tmp/sockets log public/uploads}
 
 
 # Work around bug in capistrano.
